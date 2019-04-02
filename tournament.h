@@ -2,11 +2,12 @@
 #define GALE_SHAPLEY_TOURNAMENT_H
 
 #include <vector>
+#include <map>
 #include "player.h"
 
 class tournament {
 
-    std::vector<player> players; //TODO: cambiar por mapa
+    std::map<std::string,player> players; //TODO: cambiar por mapa
 
 public:
     player createPlayer(std::string file_line);

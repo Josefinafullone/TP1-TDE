@@ -5,6 +5,7 @@
 #include "tournament.h"
 #include <string>
 #include <iostream>
+#include <map>
 
 player tournament::createPlayer(std::string file_line) {
     std::string delimiter = ",";
@@ -15,5 +16,5 @@ player tournament::createPlayer(std::string file_line) {
 }
 
 void tournament::addPlayer(player aPlayer) {
-    players.push_back(aPlayer);
+    players.insert(std::pair<std::string, player>(aPlayer.getName(),aPlayer));
 }

@@ -11,7 +11,8 @@ class matcher {
 
     parser my_parser;
     tournament my_tournament;
-
+    size_t nPlayers;
+    
 public:
     matcher() = delete;
     ~matcher();

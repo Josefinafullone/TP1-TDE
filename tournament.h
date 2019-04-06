@@ -12,13 +12,6 @@ class tournament {
 public:
     /*player createPlayer(std::string file_line);*/
     void addPlayer(player aPlayer);
-    // Iterator support
-    typedef std::map<std::string,player>::iterator iterator;
-    iterator begin();
-    iterator end();
-    // Const version
-    iterator begin();
-    iterator end();
 };
 
 

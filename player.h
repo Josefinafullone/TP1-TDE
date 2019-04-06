@@ -20,7 +20,7 @@ class player {
 	    player(size_t nPlayers);
 		player(const int & rank, const std::string & str);
 	    ~player();
-	    setPreferences();
+	    void setPreferences();
 
 	    friend istream& operator>>(istream& is, player & p){
 	    	//falta parsear o decidir si tomar solo una linea o varias, si usamos una entrada por linea -> usar stringstream

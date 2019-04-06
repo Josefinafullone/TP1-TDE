@@ -22,17 +22,9 @@ void tournament::addPlayer(player aPlayer) {
     players.insert(std::pair<std::string, player>(aPlayer.getName(),aPlayer));
 }
 
-    // Iterator support
-    iterator tournament::begin() {
-        return &players.begin();
-    }
-    iterator tournament::end() {
-        return &players.end();
-    }
-    // Const version
-    iterator tournament::begin() const {
-        return &player.begin();
-    }
-    iterator tournament::end() const {
-        return &player.end();
-    }
+
+//1: 3 2 4
+//2: 4 1 3
+//3: 4 2 1
+//4: 3 2 1
+

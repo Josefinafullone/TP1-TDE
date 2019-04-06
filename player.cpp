@@ -3,6 +3,8 @@
 #include <string>
 #include <vector>
 #include <iostream>
+#include <algorithm>
+#include <fstream>
 
 using namespace std;
 
@@ -28,12 +30,12 @@ player::~player() {
 }
 
 player::player(size_t nPlayers){
-	std::vector<std::string> aux(nPlayers);
+	std::vector<std::string> aux(nPlayers,"");
 	player_preferences = aux;
 }
 
 
-player::setPreferences(){
+void player::setPreferences(){
 	std::fstream file;
 	std::string name;
 	size_t preference;
@@ -45,7 +47,7 @@ player::setPreferences(){
 	}
 
 	while(!file.eof()){
-		std::getline(file,name,",");
+		std::getline(file,name,',');
 		if(!file.good()){
 			std::cerr << "Error preferences file format" << std::endl; //tmb super hardcodeado
 			exit(1);
@@ -55,8 +57,10 @@ player::setPreferences(){
 			std::cerr << "Error preferences file format" << std::endl; //tmb super hardcodeado
 			exit(1);
 		}
-
-		player_preferences[ranking] = name; //O(1)
+		//if(player_preferences[ranking] != "")
+			player_preferences[ranking] = name;
+		//else
+		//	player_preferences.insert(ranking+1,name);
 	}
 	make_heap(player_preferences.begin(),player_preferences.end());  //O(3n)
 	return;

@@ -13,12 +13,16 @@ matcher::matcher(long players_amount, std::string players_file): my_parser(std::
 matcher::~matcher() {
 }
 
-void matcher::createTournament() {
-    std::string pj;
-    while (std::getline(*(my_parser.getStream()), pj)) {
-        player aPlayer = my_tournament.createPlayer(pj);
-        std::cout <<"aPlayer.rank = "<< aPlayer.getRanking() <<"; aPlayer.name = "<< aPlayer.getName() << std::endl;
+void matcher::createTournament(size_t const & nPlayers) {
+    player aPlayer(nPlayers);
+    while (player_file >> aPlayer) { //probar ciclo
+    	if(!player_file.good()){
+    		std::cerr << "Error database" << std::endl; //super hardcodeado
+    		exit(1);
+    	}
+        aPlayer.setPreferences();
         my_tournament.addPlayer(aPlayer);
     }
+    return;
 }
 

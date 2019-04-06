@@ -6,7 +6,7 @@
 
 parser::parser(std::string file_path) {
     myfile = new std::fstream();
-    myfile->open("jugadores.rank");
+    myfile->open(file_path);
 }
 
 parser::~parser() {

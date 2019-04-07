@@ -9,20 +9,19 @@ using namespace std;
 
 
 class player {
-    size_t ranking;
     std::string name, file_dir, couple;
-    std::vector<std::string> player_preferences;
+    std::vector< std::pair<size_t,std::string> > *player_preferences;
     bool matched;
 
 	public:
-	    int getRanking() const;
 	    const std::string &getName() const;
 	    player();
 	    player(size_t nPlayers);
-		player(const int & rank, const std::string & str);
+		player(const std::string & str);
 	    ~player();
 	    void setPreferences();
 	    bool isMatched();
+	    void setCouple();
 
 	    friend istream& operator>>(istream& is, player & p){
 	    	//falta parsear o decidir si tomar solo una linea o varias, si usamos una entrada por linea -> usar stringstream
@@ -45,8 +44,6 @@ class player {
 
 			p.file_dir = file_dir;
 			p.name = name;
-			p.ranking = ranking;
-
 			return is;
 		}
 };

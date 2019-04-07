@@ -18,7 +18,7 @@ void tournament::addPlayer(player aPlayer) {
 }
 
 tournament::tournament(size_t nPlayers, std::string fileName){
-   	player aPlayer(nPlayers);
+   	player aPlayer;
     std::fstream file;
     file.open(file_dir);
 

@@ -8,18 +8,19 @@
 
 using namespace std;
 
+bool sortByPreferences(const pair<size_t,std::string> & p1, const pair<size_t,std::string> & p2){
+	return p1.first < p2.first;
+}
+
 player::player(){
 	file_dir = name = "";
-	ranking = 0;
+    matched = false;
+    player_preferences = new std::vector< std::pair<size_t,std::string> >;
 }
 
-player::player(const int & rank, const std::string & str) {
-   	ranking = rank;
+player::player(const std::string & str) {
     name = str;
-}
-
-int player::getRanking() const {
-    return ranking;
+    matched = false;
 }
 
 const std::string & player::getName() const {
@@ -27,18 +28,14 @@ const std::string & player::getName() const {
 }
 
 player::~player() {
+	delete player_preferences;
 }
-
-player::player(size_t nPlayers){
-	std::vector<std::string> aux(nPlayers,"");
-	player_preferences = aux;
-}
-
 
 void player::setPreferences(){
 	std::fstream file;
 	std::string name;
 	size_t preference;
+	std::pair<size_t, std::string> pair;
 
 	file.open(file_dir);
 	if(!file.good()){
@@ -57,12 +54,10 @@ void player::setPreferences(){
 			std::cerr << "Error preferences file format" << std::endl; //tmb super hardcodeado
 			exit(1);
 		}
-		//if(player_preferences[ranking] != "")
-			player_preferences[ranking] = name;
-		//else
-		//	player_preferences.insert(ranking+1,name);
+		pair = make_pair(preference,name);
+		player_preferences->push_back(pair);
 	}
-	make_heap(player_preferences.begin(),player_preferences.end());  //O(3n)
+	make_heap(player_preferences->begin(),player_preferences->end(),sortByPreferences);  //O(3n)
 	return;
 }
 

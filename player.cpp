@@ -26,7 +26,7 @@ const std::string & player::getName() const {
     return name;
 }
 
-player::~player(){};
+player::~player(){}
 
 void player::setPreferences(){
 	std::fstream file;

@@ -23,6 +23,17 @@ class player {
 	    bool isMatched();
 	    void setCouple();
 
+		typedef std::vector<std::pair<size_t,std::string>>::iterator iterator;
+		iterator begin(){
+			return player_preferences.begin();
+		}
+		iterator end(){
+			return player_preferences.end();
+		}
+		
+
+
+
 	    friend istream& operator>>(istream& is, player & p){
 	    	//falta parsear o decidir si tomar solo una linea o varias, si usamos una entrada por linea -> usar stringstream
 			std::string file_dir, name;

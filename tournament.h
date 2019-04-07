@@ -4,19 +4,22 @@
 #include <vector>
 #include <map>
 #include "player.h"
+#include "safeStream.h"
 
 class tournament {
 
     std::map<std::string,player> players;
-    std::vector<player*> list; // paso punteros para usar los jugadores ya guardados en players y no tener que buscarlos en map al iterar
-   	std::string file_dir;
+    std::vector<player*> proposers; // paso punteros para usar los jugadores ya guardados en players y no tener que buscarlos en map al iterar
+   	safeStream players_file;
 
 public:
-    void addPlayer(player aPlayer);
     tournament();
     ~tournament();
-    tournament(size_t nPlayers, std::string fileName);
-    std::vector<player*>& getList();
+	bool allMatched();
+	void addPlayer(player aPlayer);
+	void findPartner(player* aPlayer);
+	tournament(size_t nPlayers, std::string fileName);
+    std::vector<player*>& getProposers();
 
 };
 #endif //GALE_SHAPLEY_TOURNAMENT_H

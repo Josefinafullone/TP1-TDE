@@ -1,19 +1,21 @@
 #include <vector>
 #include <utility>
 #include <iostream>
-#include "parser.h"
+#include "safeStream.h"
 #include "player.h"
 
-parser::parser(std::string file_path) {
+safeStream::safeStream(std::string file_path) {
     myfile = new std::fstream();
     myfile->open(file_path);
 }
 
-parser::~parser() {
+safeStream::~safeStream() {
     myfile->close();
     delete(myfile);
 }
 
-std::fstream* parser::getStream() {
+std::fstream* safeStream::getStream() {
     return myfile;
 }
+
+safeStream::safeStream() {}

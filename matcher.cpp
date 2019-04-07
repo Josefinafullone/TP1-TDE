@@ -4,12 +4,23 @@
 #include <stdio.h>
 #include "matcher.h"
 
-void gale_shapley(std::vector<player*> & v){
-    size_t i = 0;              //sea o e Oferente y p e Postulante
-    while(!v[i]->isMatched()){ //mientras o no tenga pareja, recorrer lista de prefs hasta encontrar el primero sin pareja
+matcher::matcher(size_t nPlayers, std::string players_file) {
+    my_tournament = tournament(nPlayers, players_file);
+}
 
+matcher::~matcher() = default;
+
+void matcher::gale_shapley(){
+    std::cout << "--- Finding best match... ---" << std::endl;
+    for (auto it = my_tournament.getProposers().begin(); ; ++it){
+        if (my_tournament.allMatched())
+            break;
+        else if (it == my_tournament.getProposers().end())
+            it = my_tournament.getProposers().begin();
+        std::cout << "Player to partner up: "<< (*it)->getName() << std::endl;
+        if ((*it)->isFree())
+            my_tournament.findPartner((*it));
     }
-
 }
 
 

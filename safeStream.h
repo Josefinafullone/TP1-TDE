@@ -4,15 +4,16 @@
 #include <fstream>
 #include "player.h"
 
-class parser {
+class safeStream {
 
     std::fstream* myfile;
 
 public:
 
-    parser(std::string file_path);
+    safeStream();
+    explicit safeStream(std::string file_path);
     std::fstream* getStream();
-    ~parser();
+    ~safeStream();
 };
 
 #endif //GALE_SHAPLEY_PARSER_H

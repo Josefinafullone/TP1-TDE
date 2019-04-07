@@ -4,30 +4,14 @@
 #include <stdio.h>
 #include "matcher.h"
 
-matcher::matcher(long players_amount, std::string players_file): my_parser(std::move(players_file)){
-    matcher::my_tournament = tournament();
-    nPlayers = players_amount;
+void gale_shapley(std::vector<player*> & v){
+    size_t i = 0;              //sea o e Oferente y p e Postulante
+    while(!v[i]->isMatched()){ //mientras o no tenga pareja, recorrer lista de prefs hasta encontrar el primero sin pareja
+
+    }
+
 }
 
-matcher::~matcher() {
-}
-
-
-void matcher::createTournament() {
-    /*player aPlayer(nPlayers);
-    std::fstream file;
-    file.open(players_file);
-
-    while (file >> aPlayer) { //probar ciclo
-    	if(!file.good()){
-    		std::cerr << "Error database" << std::endl; //super hardcodeado
-    		exit(1);
-    	}
-        aPlayer.setPreferences();
-        my_tournament.addPlayer(aPlayer);
-    }*/
-    return;
-}
 
 //una lista de oferentes y un mapa. lista de oferentes O(n/2) e O(n), mapa O(n)
 //por cada n hay una lista de preferencias O(n-1) e O(n) -> espacialmente hay O(n²)

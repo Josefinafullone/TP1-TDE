@@ -7,12 +7,16 @@
 
 class tournament {
 
-    std::map<std::string,player> players; //TODO: cambiar por mapa
+    std::map<std::string,player> players;
+    std::vector<player*> list; // paso punteros para usar los jugadores ya guardados en players y no tener que buscarlos en map al iterar
+   	std::string file_dir;
 
 public:
-    /*player createPlayer(std::string file_line);*/
     void addPlayer(player aPlayer);
+    tournament();
+    ~tournament();
+    tournament(size_t nPlayers, std::string fileName);
+    std::vector<player*>& getList();
+
 };
-
-
 #endif //GALE_SHAPLEY_TOURNAMENT_H

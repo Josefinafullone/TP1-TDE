@@ -8,17 +8,10 @@
 #include "tournament.h"
 
 class matcher {
-
-    parser my_parser;
-    tournament my_tournament;
-    size_t nPlayers;
-    
-public:
-    matcher() = delete;
+  public:
+    matcher();
     ~matcher();
-    matcher(long players_amount, std::string players_file);
-
-    void createTournament();
+    void gale_shapley(std::vector<player> & v);
 };
 
 

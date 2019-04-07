@@ -66,5 +66,9 @@ void player::setPreferences(){
 	return;
 }
 
+bool player::isMatched(){
+	return matched;
+}
+
 	
 

@@ -15,7 +15,6 @@ bool sortByPreferences(const pair<size_t,std::string> & p1, const pair<size_t,st
 player::player(){
 	file_dir = name = "";
     matched = false;
-    player_preferences = new std::vector< std::pair<size_t,std::string> >;
 }
 
 player::player(const std::string & str) {
@@ -27,9 +26,7 @@ const std::string & player::getName() const {
     return name;
 }
 
-player::~player() {
-	delete player_preferences;
-}
+player::~player(){};
 
 void player::setPreferences(){
 	std::fstream file;
@@ -55,9 +52,9 @@ void player::setPreferences(){
 			exit(1);
 		}
 		pair = make_pair(preference,name);
-		player_preferences->push_back(pair);
+		player_preferences.push_back(pair);
 	}
-	make_heap(player_preferences->begin(),player_preferences->end(),sortByPreferences);  //O(3n)
+	make_heap(player_preferences.begin(),player_preferences.end(),sortByPreferences);  //O(3n)
 	return;
 }
 

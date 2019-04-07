@@ -10,7 +10,7 @@ using namespace std;
 
 class player {
     std::string name, file_dir, couple;
-    std::vector< std::pair<size_t,std::string> > *player_preferences;
+    std::vector< std::pair<size_t,std::string> > player_preferences;
     bool matched;
 
 	public:

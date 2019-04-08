@@ -13,11 +13,11 @@ matcher::~matcher() = default;
 void matcher::gale_shapley(){
     std::cout << "--- Finding best match... ---" << std::endl;
     for (auto it = my_tournament.getProposers().begin(); ; ++it){
-        if (my_tournament.allMatched())
-            break;
+        if (my_tournament.allMatched()){
+            return;
+        }
         else if (it == my_tournament.getProposers().end())
             it = my_tournament.getProposers().begin();
-        std::cout << "Player to partner up: "<< (*it)->getName() << std::endl;
         if ((*it)->isFree())
             my_tournament.findPartner((*it));
     }
@@ -43,4 +43,3 @@ void matcher::gale_shapley(){
 //}
 //g(n) = O(n²logn)
 
-//std::map<size_t,string> -> O(nlogn)

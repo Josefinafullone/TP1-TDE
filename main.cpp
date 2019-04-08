@@ -12,6 +12,6 @@ int main(int argc, char* argv[]) {
     matcher my_match(static_cast<size_t>(strtol(argv[1], nullptr, 10)),
                      std::string(argv[2]));
 
-    //my_mtcher.gale_shapely();
+    my_match.gale_shapley();
     return 0;
 }

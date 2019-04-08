@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include <iostream>
+#include <sstream>
 
 using namespace std;
 
@@ -11,7 +12,7 @@ using namespace std;
 class player {
     std::string name, file_dir;
     std::vector< std::pair<size_t,std::string> > player_preferences; //pares <preferencia - nombre>
-	player* partner;
+	player * partner;
 
 public:
 	player();
@@ -28,27 +29,50 @@ public:
 	~player();
 
 	friend istream& operator>>(istream& is, player & p){
-	    	//falta parsear o decidir si tomar solo una linea o varias, si usamos una entrada por linea -> usar stringstream
-			std::string file_dir, name;
-			size_t ranking;
-			char ch;
+	   	std::stringstream ss;
+		std::string file_dir, name, aux;
+		size_t ranking;
+		char ch;
 
-			if(is >> ranking && is.good()){
-				if(is >> ch && ch == ',' ){
-					std::getline(is,name,',');
-					if(!is.good())
+		if(is >> ch && !is.eof()){
+			if(!iscntrl(ch))
+				is.putback(ch);
+			std::getline(is,aux);
+			if(is.fail()){
+				return is;
+			}
+			if(aux[aux.length()-1] == 0x0d)
+	       		aux.resize(aux.length()-1);//to delete carriage return
+			ss << aux;
+			if(ss >> ranking){
+				if(ss >> ch && ch == ',' ){
+					std::getline(ss,name,',');
+					if(ss.fail()){
+						is.clear(std::ios::failbit);
 						return is;
-					std::getline(is,file_dir);
-					if(!is.good())
+					}	
+					std::getline(ss,file_dir);
+					if(ss.fail()){
+						is.clear(std::ios::failbit);
 						return is;
+					}
 				}
 			}
-			else
-				return is;
+		}
 
-			p.file_dir = file_dir.substr(0, file_dir.size()-1); //substr porque agarra el \r de final de linea
-			p.name = name;
+		if(is.fail() && !is.eof()){
 			return is;
 		}
+
+		if(is.eof()){
+			is.clear(std::ios::eofbit);
+			return is;
+		}
+
+		p.file_dir = file_dir;
+		p.name = name;
+
+		return is;
+	}
 };
 #endif //GALE_SHAPLEY_PLAYER_H

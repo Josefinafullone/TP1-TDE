@@ -14,7 +14,6 @@ bool sortByPreferences(const pair<size_t,std::string> & p1, const pair<size_t,st
 
 player::player(){
 	file_dir = name = "";
-	player_preferences = std::vector< std::pair<size_t,std::string> >();
 	partner = nullptr;
 }
 
@@ -62,9 +61,7 @@ bool player::prefers(pair<size_t, string> p) {
 	return new_partner_priority < actual_partner_priority;
 }
 
-player::~player() {
-//	delete player_preferences;
-}
+player::~player(){}
 
 void player::setPartner(player *partner) {
 	player::partner = partner;
@@ -72,31 +69,35 @@ void player::setPartner(player *partner) {
 
 void player::setPreferences(){
 	std::fstream file;
-	std::string name;
-	size_t preference;
+	std::string name,aux;
+	int preference;
 	std::pair<size_t, std::string> pair;
+	//char ch;
 
 	file.open(file_dir);
-	if(!file.good()){
-		std::cerr << "Error opening preferences file" << std::endl; //tmb super hardcodeado
+	if(!file.is_open()){
+		std::cerr << "Error opening preferences file of: " << this->getName() << std::endl; //tmb super hardcodeado
 		exit(1);
 	}
 
 	while(!file.eof()){
 		std::getline(file,name,',');
-		if(!file.good()){
-			std::cerr << "Error preferences file format" << std::endl; //tmb super hardcodeado
+		if(file.fail()){
+			std::cerr << "Error preferences file format of: " << this->getName() << std::endl; //tmb super hardcodeado
 			exit(1);
 		}
-		file >> preference;	//hay quilombo con los /r/n a partir del segundo nombre
-		if(!file.good()){
-			std::cerr << "Error preferences file format" << std::endl; //tmb super hardcodeado
+		file >> preference;
+		if(file.fail()){
+			std::cerr << "Error preferences file format of: " << this->getName() << std::endl; //tmb super hardcodeado
 			exit(1);
 		}
-		pair = make_pair(preference, name);
+		std::getline(file,aux); //clear line
+		pair = make_pair(preference,name);
 		player_preferences.push_back(pair);
 	}
-	make_heap(player_preferences.begin(),player_preferences.end(),sortByPreferences);  //O(3n)
+	sort(player_preferences.begin(),player_preferences.end(),sortByPreferences);
+	file.close();
+	return;
 }
 
 void player::losePartner() {

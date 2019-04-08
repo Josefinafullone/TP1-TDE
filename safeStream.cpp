@@ -11,7 +11,7 @@ safeStream::safeStream(std::string file_path) {
 
 safeStream::~safeStream() {
     myfile->close();
-    delete(myfile);
+    delete myfile ;
 }
 
 std::fstream* safeStream::getStream() {

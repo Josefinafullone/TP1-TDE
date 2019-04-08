@@ -39,7 +39,8 @@ public:
 				is.putback(ch);
 			std::getline(is,aux);
 			if(is.fail()){
-				return is;
+				std::cerr << "Error" << std::endl;
+				exit(1);
 			}
 			if(aux[aux.length()-1] == 0x0d)
 	       		aux.resize(aux.length()-1);//to delete carriage return
@@ -48,25 +49,21 @@ public:
 				if(ss >> ch && ch == ',' ){
 					std::getline(ss,name,',');
 					if(ss.fail()){
-						is.clear(std::ios::failbit);
-						return is;
+						std::cerr << "Error" << std::endl;
+						exit(1);
 					}	
 					std::getline(ss,file_dir);
 					if(ss.fail()){
-						is.clear(std::ios::failbit);
-						return is;
+						std::cerr << "Error" << std::endl;
+						exit(1);
 					}
 				}
 			}
 		}
 
 		if(is.fail() && !is.eof()){
-			return is;
-		}
-
-		if(is.eof()){
-			is.clear(std::ios::eofbit);
-			return is;
+			std::cerr << "Error" << std::endl;
+			exit(1);
 		}
 
 		p.file_dir = file_dir;

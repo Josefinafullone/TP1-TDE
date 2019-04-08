@@ -36,9 +36,6 @@ tournament::tournament(size_t nPlayers, std::string fileName) : players_file(fil
     size_t i = 0;
 
     while (*file >> *aPlayer) {
-    	if(file->fail()){
-    		std::cerr << "Error while reading players ranking" << std::endl;
-    	}
         aPlayer->setPreferences();
         addPlayer(*aPlayer);
         if (i < nPlayers/2)   //guardo solo la mitad mejor rankeada

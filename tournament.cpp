@@ -7,21 +7,21 @@ tournament::tournament() {}
 
 tournament::~tournament(){}
 
-void tournament::addPlayer(player aPlayer) {
-    players.insert(std::pair<std::string, player>(aPlayer.getName(),aPlayer));
+void tournament::addPlayer(player* aPlayer) {
+    players.insert(std::pair<std::string, player*>(aPlayer->getName(),aPlayer));
 }
 
 void tournament::findPartner(player * aPlayer) {
 	for (auto p : aPlayer->getPlayer_preferences()) {
-		player candidate = players[p.second];	//chequear que objeto player en mapa sea mismo que el vector!
-		if (candidate.isFree()) {
-			aPlayer->partnerUp(&candidate);
+		player* candidate = players[p.second];	//chequear que objeto player en mapa sea mismo que el vector!
+		 if (candidate->isFree()) {
+			aPlayer->partnerUp(candidate);
 			return;
 		} else {
-			std::string actual_partner = candidate.getPartner()->getName();
-			if (candidate.prefers(p)) { //revisar o consultar
-				candidate.losePartner();
-				aPlayer->partnerUp(&candidate);
+			std::string actual_partner = candidate->getPartner()->getName();
+			if (candidate->prefers(p)) { //revisar o consultar
+				candidate->losePartner();
+				aPlayer->partnerUp(candidate);
 				return;
 			}
 		}
@@ -30,14 +30,14 @@ void tournament::findPartner(player * aPlayer) {
 
 tournament::tournament(size_t nPlayers, std::string fileName) : players_file(fileName){
    	player * aPlayer = new player;
-    std::fstream * file = players_file.getStream();	//lo arme con el safeStream (ex parser) pa chequear que
-    												//funcionaba con eso (de curioso), en la lectura del otro archivo
+    std::fstream file;
+    file.open(players_file);    												//funcionaba con eso (de curioso), en la lectura del otro archivo
     												// no lo hice, de cualqueria de las 2 formas me da igual
     size_t i = 0;
 
-    while (*file >> *aPlayer) {
+    while (file >> *aPlayer) {
         aPlayer->setPreferences();
-        addPlayer(*aPlayer);
+        addPlayer(aPlayer);
         if (i < nPlayers/2)   //guardo solo la mitad mejor rankeada
             proposers.push_back(aPlayer);
         i++;

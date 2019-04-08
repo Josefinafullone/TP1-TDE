@@ -7,4 +7,4 @@ include_directories(.)
 
 add_executable(Gale_Shapley
         .gitignore
-        README.md main.cpp matcher.cpp matcher.h safeStream.cpp safeStream.h player.cpp player.h tournament.cpp tournament.h)
+        README.md main.cpp matcher.cpp matcher.h player.cpp player.h tournament.cpp tournament.h)

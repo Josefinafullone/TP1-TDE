@@ -1,6 +1,7 @@
 #include <utility>
 #include <fstream>
 #include <iostream>
+#include <iterator>
 #include <stdio.h>
 #include "matcher.h"
 
@@ -11,7 +12,7 @@ matcher::matcher(size_t nPlayers, std::string players_file) {
 matcher::~matcher() = default;
 
 void matcher::gale_shapley(){
-    std::cout << "--- Finding best match... ---" << std::endl;
+    //std::cout << "--- Finding best match... ---" << std::endl;
     for (auto it = my_tournament.getProposers().begin(); ; ++it){
         if (my_tournament.allMatched()){
             return;
@@ -22,6 +23,24 @@ void matcher::gale_shapley(){
             my_tournament.findPartner((*it));
     }
 }
+
+void matcher::printResults(){
+
+    ofstream outputFile;
+    outputFile.open ("resultados.txt");
+
+    for (size_t i=0; i < my_tournament.getProposers().size();i++){
+
+        outputFile << (my_tournament.getProposers()[i])->getName() << "," << (my_tournament.getProposers()[i])->getPartner()->getName() << std::endl;
+        
+    }
+    outputFile.close(); 
+
+}
+
+
+
+
 
 
 //una lista de oferentes y un mapa. lista de oferentes O(n/2) e O(n), mapa O(n)

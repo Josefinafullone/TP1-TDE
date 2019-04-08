@@ -13,6 +13,7 @@ class matcher {
     matcher(size_t nPlayers, std::string players_file);
     ~matcher();
     void gale_shapley();
+    void printResults();
 };
 
 

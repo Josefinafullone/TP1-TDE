@@ -12,17 +12,17 @@ using namespace std;
 class player {
     std::string name, file_dir;
     std::vector< std::pair<size_t,std::string> > player_preferences; //pares <preferencia - nombre>
-	player * partner;
+	player* partner;
+	size_t partner_pref;
 
 public:
 	player();
 	explicit player(const std::string & str);
 	const std::string& getName() const;
 	player* getPartner() const;
-	void setPartner(player *partner);
-	void partnerUp(player *p);
+	void partnerUp(player *p, size_t pref, size_t my_pref);
 	void losePartner();
-	bool prefers(pair<size_t, string> p);
+	bool prefers(size_t p);
 	const vector<pair<size_t, string>> &getPlayer_preferences() const;
 	void setPreferences();
 	bool isFree();
@@ -71,5 +71,7 @@ public:
 
 		return is;
 	}
+
+    size_t getPriorityOf(player *pPlayer);
 };
 #endif //GALE_SHAPLEY_PLAYER_H

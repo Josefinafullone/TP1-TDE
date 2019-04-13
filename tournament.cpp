@@ -11,17 +11,17 @@ void tournament::addPlayer(player* aPlayer) {
     players.insert(std::pair<std::string, player*>(aPlayer->getName(),aPlayer));
 }
 
-void tournament::findPartner(player * aPlayer) {
+void tournament::findPartner(player* aPlayer) {
 	for (auto p : aPlayer->getPlayer_preferences()) {
-		player* candidate = players[p.second];	//chequear que objeto player en mapa sea mismo que el vector!
+		player* candidate = players[p.second];
+		size_t my_pref = candidate->getPriorityOf(aPlayer);
 		 if (candidate->isFree()) {
-			aPlayer->partnerUp(candidate);
+			 aPlayer->partnerUp(candidate, p.first, my_pref);
 			return;
 		} else {
-			std::string actual_partner = candidate->getPartner()->getName();
-			if (candidate->prefers(p)) { //revisar o consultar
+			if (candidate->prefers(my_pref)) {
 				candidate->losePartner();
-				aPlayer->partnerUp(candidate);
+				aPlayer->partnerUp(candidate, p.first, my_pref);
 				return;
 			}
 		}
@@ -31,8 +31,7 @@ void tournament::findPartner(player * aPlayer) {
 tournament::tournament(size_t nPlayers, std::string fileName) : players_file(fileName){
    	player * aPlayer = new player;
     std::fstream file;
-    file.open(players_file);    												//funcionaba con eso (de curioso), en la lectura del otro archivo
-    												// no lo hice, de cualqueria de las 2 formas me da igual
+    file.open(players_file);
     size_t i = 0;
 
     while (file >> *aPlayer) {
@@ -45,16 +44,14 @@ tournament::tournament(size_t nPlayers, std::string fileName) : players_file(fil
 	}
 }
 
-bool tournament::allMatched() { //manda la complejidad a la mierda porque se ejecuta por cada jugador, es decir que lo que deberia ser O(n) termina siendo O(n²)
+bool tournament::allMatched() {
 	for (const auto &each : proposers){
 		if (!each->getPartner())
 			return false;
 	}
 	return true;
-} //seria mas simple crear una variable acumuladora en la que sumemos de a 1 cada vez que se arma una pareja y que se reste 1 cada vez que se rompa una pareja
-// y verificar simplemente si el numero del acumulador coincide con el numero de parejas esperadas porque hacer la comparacion con una variable es O(1)
+}
 
 const std::vector<player*>& tournament::getProposers(){
    	return proposers;
 }
-

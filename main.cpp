@@ -1,7 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <chrono>
+#include <chrono> // for high_resolution_clock
 #include "matcher.h"
 
 
@@ -15,9 +15,15 @@ int main(int argc, char* argv[]) {
     if(nPlayers-argc == 0 || nPlayers!=0) {
     	matcher my_match(static_cast<size_t>(nPlayers), std::string(argv[2]));
 
-   		my_match.gale_shapley();
-   		my_match.printResults();
+        // Record start time
+        auto start = std::chrono::high_resolution_clock::now();
+        my_match.gale_shapley();
+        // Record end time
+        auto finish = std::chrono::high_resolution_clock::now();
+        std::chrono::duration<double> elapsed = finish - start;
 
+   		my_match.printResults();
+        std::cout << "Elapsed time: " << elapsed.count() << " s\n";
         std::cout << "Output stable check: ";
         if(my_match.is_stable())
            std::cout << "True" << std::endl;

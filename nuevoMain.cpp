@@ -10,6 +10,7 @@
 #include <list>
 #include <iterator>
 #include <algorithm>
+#include <math.h>
 
 using namespace std;
 
@@ -22,6 +23,17 @@ void swap(int *p,int *q) {
 	   *q=t;
 }
 
+void imprimirLista(list<int> lista){
+	list<int>::iterator it = lista.begin();
+
+    for (it = lista.begin(); it != lista.end(); ++it)
+    {
+        for (list<int>::iterator s = lista.begin(); s != lista.end(); s++) {
+            cout << *s << ' ';
+        }
+        cout << endl;
+    }
+    }
 
 int buscarMaximoEnVectorDesordenado(int sizeargv, int argv[]){
 // O(n)
@@ -106,6 +118,23 @@ float buscarDesviacionEstandarEnVectorDesordenado(int sizeargv, int argv[]) {
     return sqrt(desviacion/sizeargv);
 }
 
+void VariacionesRepeticiónConRelementosEnVectorDesordenado(int sizeargv, int argv[]){
+	//O(n^2)
+
+    int pow_set_size = pow(2, sizeargv);
+
+
+    for(int i = 0; i < pow_set_size; i++)
+    {
+    for(int j = 0; j < sizeargv; j++)
+    {
+        if(i & (1 << j))
+            cout << argv[j];
+    }
+    cout << endl;
+    }
+}
+
 
 void buscarPermutacionesDeConjuntoEnVectorDesordenado(int sizeargv, int argv[]){
 
@@ -121,6 +150,33 @@ void buscarPermutacionesDeConjuntoEnVectorDesordenado(int sizeargv, int argv[]){
 
 }
 
+
+void buscaSubconjuntosEnVectorDesordenadoAPartirDeRElementos(int sizeargv, int argv[], int r) {
+
+	list<int> listaAux;
+
+	for (int i = 0; i < sizeargv; i++){
+
+		listaAux.push_back(argv[i]);
+
+		if(listaAux.size() == 1){
+		imprimirLista(listaAux);
+		}
+
+
+		for(int j = 0; j < sizeargv; j++){
+			if(argv[i] != argv[j]){
+			listaAux.push_back(argv[j]);
+			imprimirLista(listaAux);
+			listaAux.pop_back();
+			}
+		}
+		listaAux.clear();
+
+	}
+
+
+	}
 
 int buscarMaximoEnList(list<int> listaDeInts){
 
@@ -231,43 +287,39 @@ void buscaPermutacionesEnLista(list<int> listaDeInts){
 }
 
 
-void imprimirLista(list<int> lista){
-	list<int>::iterator it = lista.begin();
-
-    for (it = lista.begin(); it != lista.end(); ++it)
-    {
-        for (list<int>::iterator s = lista.begin(); s != lista.end(); s++) {
-            cout << *s << ' ';
-        }
-        cout << endl;
-    }
-    }
 
 
-void buscaPermutacionesEnListaAPartirDeRElementos(list<int> listaDeInts, int R){
 
-
+void buscaSubconjuntosEnListaAPartirDeRElementos(list<int> lista, int r){
+    list<int>::iterator it2 = lista.begin();
+    list<int>::iterator it  = lista.begin();
+    list<int> listaAux;
     int contador = 0;
 
-    list<int> listaAux;
 
-    for (list<int>::iterator it = listaDeInts.begin(); it != listaDeInts.end(); ++it)
-    {
-        for (list<int>::iterator s = listaDeInts.begin(); s != listaDeInts.end() && contador < R; s++) {
-        		if(*it != *s){
-        		listaAux.push_back(*s);
-        		}
-        	    imprimirLista(listaDeInts);
+    while (it2 != lista.end() ){
+    		if(contador == 0){
+    		listaAux.push_back(*it2);
+    		}
 
-        }
-        listaAux.clear();
-        contador++;
-    }
+    		while(it != lista.end()){
+    		{
+    			if(*it != *it2){
+    	    			listaAux.push_back(*it);
+    			}
 
-
+    		contador++;
+    		imprimirLista(listaAux);
+    			if(contador == r){
+    				contador = 0;
+    			}
+    			}
+    		it++;
+    		}
+    		it2++;
+    		it  = lista.begin();
 }
-
-
+}
 
 int buscarMaximoEnVectorOrdenado(int sizeargv, int argv[]){
 	// O(1)
@@ -352,10 +404,26 @@ void buscarPermutacionesDeConjuntoEnVectorOrdenado(int sizeargv, int argv[]){
 }
 
 
+void VariacionesRepeticiónConRelementosEnVectorOrdenado(int sizeargv, int argv[]){
+	//O(n^2)
+
+    int pow_set_size = pow(2, sizeargv);
 
 
+    for(int i = 0; i < pow_set_size; i++)
+    {
+    for(int j = 0; j < sizeargv; j++)
+    {
+        if(i & (1 << j))
+            cout << argv[j];
+    }
+    cout << endl;
+    }
+}
 
-int main() {
+
+int main()
+{
 	std::list<int> listaDeInts;
 
 	listaDeInts.push_front(23);
@@ -363,12 +431,25 @@ int main() {
 	listaDeInts.push_front(20);
 
 
-	int vector[] = {23,29,20};
 
-
-	buscaPermutacionesEnListaAPartirDeRElementos(listaDeInts, 2);
     return 0;
-
 }
+
+//int main() {
+	//std::list<int> listaDeInts;
+
+	//listaDeInts.push_front(23);
+	//listaDeInts.push_front(29);
+	//listaDeInts.push_front(20);
+
+
+//	int vector[] = {23,29,20};
+
+
+  //  printPowerset(vector, 2);
+
+    //return 0;
+
+//}
 
 

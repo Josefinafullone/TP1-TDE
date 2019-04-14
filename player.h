@@ -20,6 +20,7 @@ public:
 	explicit player(const std::string & str);
 	const std::string& getName() const;
 	player* getPartner() const;
+	size_t getPartnerPref() const;
 	void partnerUp(player *p, size_t pref, size_t my_pref);
 	void losePartner();
 	bool prefers(size_t p);

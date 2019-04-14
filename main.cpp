@@ -17,8 +17,15 @@ int main(int argc, char* argv[]) {
     	matcher my_match(static_cast<size_t>(strtol(argv[1], nullptr, 10)),
                      std::string(argv[2]));
 
-   		 my_match.gale_shapley();
-   		 my_match.printResults();
+   		my_match.gale_shapley();
+   		my_match.printResults();
+        std::cout << "Output stable check: ";
+        if(my_match.is_stable())
+           std::cout << "True" << std::endl;
+
+        else std::cout << "False" << std::endl;
+
+
 
     } else std::cerr << "Wrong input. The number of prefence must be a positive number" << std::endl;
 

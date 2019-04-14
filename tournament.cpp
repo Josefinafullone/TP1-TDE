@@ -15,7 +15,7 @@ void tournament::findPartner(player* aPlayer) {
 	for (auto p : aPlayer->getPlayer_preferences()) {
 		player* candidate = players[p.second];
 		size_t my_pref = candidate->getPriorityOf(aPlayer);
-		 if (candidate->isFree()) {
+		if (candidate->isFree()) {
 			 aPlayer->partnerUp(candidate, p.first, my_pref);
 			return;
 		} else {
@@ -27,6 +27,11 @@ void tournament::findPartner(player* aPlayer) {
 		}
 	}
 }
+
+player* tournament::getPlayer(const std::string & str){
+	return  players[str];
+}
+
 
 tournament::tournament(size_t nPlayers, std::string fileName) : players_file(fileName){
    	player * aPlayer = new player;

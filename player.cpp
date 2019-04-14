@@ -100,6 +100,11 @@ void player::losePartner() {
 	this->partner_pref = 0;
 }
 
+size_t player::getPartnerPref() const{
+	return partner_pref;
+}
+
+
 size_t player::getPriorityOf(player *pPlayer) {
 	size_t pref = 0;
 	for (const auto &each : this->getPlayer_preferences()) {

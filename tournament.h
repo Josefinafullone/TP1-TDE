@@ -19,6 +19,7 @@ public:
 	void findPartner(player * aPlayer);
 	tournament(size_t nPlayers, std::string fileName);
     const std::vector<player*>& getProposers();
+    player* getPlayer(const std::string &);
 
 };
 #endif //GALE_SHAPLEY_TOURNAMENT_H

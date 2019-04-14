@@ -14,6 +14,7 @@ class matcher {
     ~matcher();
     void gale_shapley();
     void printResults();
+    bool is_stable();
 };
 
 

@@ -24,6 +24,23 @@ void matcher::gale_shapley(){
     }
 }
 
+
+
+bool matcher::is_stable(){
+    size_t i = 0;
+    player * player_aux;
+
+    for(auto each : my_tournament.getProposers()){//O(n)
+        i = each->getPartnerPref();//O(n)
+        for(auto it = each->getPlayer_preferences().begin(); i; i--){//O(n)
+            player_aux = my_tournament.getPlayer(it->second);
+            if(player_aux->getPriorityOf(each) < player_aux->getPartnerPref())//O(n)
+                return false;
+        }
+    }
+    return true;
+}//O(n³)
+
 void matcher::printResults(){
 
     ofstream outputFile;

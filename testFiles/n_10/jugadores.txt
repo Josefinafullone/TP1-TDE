@@ -1,0 +1,10 @@
+1,j1,jugador1.pref
+2,j2,jugador2.pref
+3,j3,jugador3.pref
+4,j4,jugador4.pref
+5,j5,jugador5.pref
+6,j6,jugador6.pref
+7,j7,jugador7.pref
+8,j8,jugador8.pref
+9,j9,jugador9.pref
+10,j10,jugador10.pref

@@ -1,0 +1,6 @@
+se creo un programa rand que genera un archivo con numeros random, se invoca de la forma ./rand [n] siendo n la cantidad de elementos
+ejecutar main en ambas carpetas para obtener ejecutables
+
+los ejecutables de las funciones se invocan por ej: ./vector (nombre archivo entrada) (funcion). la salida es en un solo archivo resultados.txt, se borra todo contenido previo en este archivo
+
+el programa correspondiente al GS se invoca como fue indicado en las consignas, tambien se compila con make
